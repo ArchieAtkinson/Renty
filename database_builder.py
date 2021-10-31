@@ -58,7 +58,7 @@ class DatabaseBuilder:
         conn = self.connect()
 
         if table == 'properties':
-            cols = ['id', 'title', 'num_bed', 'property_type', 'rent_amount',
+            cols = ['id', 'title', 'num_bed', 'property_type', 'rent_pcm',
                     'description', 'agent', 'agent_region', 'address', 'postcode']
         elif table == 'dates':
             cols = ['property_id', 'first_seen_at', 'listed_at', 'last_seen_at']

@@ -156,7 +156,7 @@ def get_number_of_pages(soup):
     result_count = str(result_count_element)
     result_count = ''.join(result_count.splitlines())
     result_count = re.search('>(.*)</', result_count).group(1).strip()
-    print('Number of pages :', result_count)
+    print('Number of pages :', math.ceil(int(result_count) / PROPERTIES_PER_PAGE))
     return math.ceil(int(result_count) / PROPERTIES_PER_PAGE)
 
 
@@ -180,7 +180,7 @@ def main():
             soup = get_soup(url)
             property_cards = get_property_cards(soup)
             print()
-            for property_card in tqdm(property_cards):
+            for property_card in property_cards:
                 data = get_data_from_property_card(property_card)
                 try:
                     db.insert_data('properties', data)
