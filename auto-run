@@ -1,0 +1,1 @@
+* * * * * python3 /home/src/app/main.py >> /var/log/renty.log 2>&1
