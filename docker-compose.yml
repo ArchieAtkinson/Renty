@@ -4,5 +4,3 @@ services:
       context: .
     volumes:
     - .:/home
-    # command: tail -F anything
-    working_dir: /home
