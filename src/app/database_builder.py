@@ -14,7 +14,7 @@ class DatabaseBuilder:
             conn = sqlite3.connect(self.database_filename)
             return conn
         except Error as e:
-            print(e)
+            pass
 
         return conn
 
@@ -48,10 +48,9 @@ class DatabaseBuilder:
             c = conn.cursor()
             c.execute(sql_table_statement)
         except Error as e:
-            print(e)
+            pass
 
         conn.commit()
-        print('Table created :', table)
         conn.close()
 
     def insert_data(self, table, data):

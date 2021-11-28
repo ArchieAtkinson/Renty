@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from sqlite3 import Error
 from tqdm import tqdm
+from datetime import datetime
 
 import process_text
 from database_builder import DatabaseBuilder
@@ -102,7 +103,6 @@ def get_data_from_property_card(property_card):
         elif 'private' in title_processed and 'hall' in title_processed:
             property_type = 'private halls'
         else:
-            print(title_processed)
             property_type = None
     else:
         num_bed = -1
@@ -157,40 +157,42 @@ def get_number_of_pages(soup):
     result_count = ''.join(result_count.splitlines())
     result_count = re.search('>(.*)</', result_count).group(1).strip()
     num_pages = math.ceil(int(result_count) / PROPERTIES_PER_PAGE)
-    print('Number of pages :', num_pages)
     return num_pages
 
+
+def get_current_time():
+    date_time = datetime.fromtimestamp(time.time())
+    str_date_time = date_time.strftime("%d-%m-%Y, %H:%M:%S")
+    return str_date_time
 
 def main():
     basepath = os.path.dirname(__file__)
     dbpath = os.path.abspath(os.path.join(basepath,os.pardir, "renty.db"))
-    print(dbpath)
     db = DatabaseBuilder(dbpath)
     db.new_table('properties')
     db.new_table('dates')
 
     # loop through possible number of beds
-    print('GETTING RENTAL PROPERTY DATA')
-    print('----------------------------')
+
+    print(f"Starting scrape at {get_current_time()}", end = ' - ')
+
     for num_beds in range(11):
-        print('Number of beds  :', num_beds)
         url = URLSets.standard(num_beds=num_beds)
         soup = get_soup(url)
         num_pages = get_number_of_pages(soup)
         for page in range(num_pages):
-            print('Page            :', page, end='')
             url = URLSets.standard(page_no=page, num_beds=num_beds)
             soup = get_soup(url)
             property_cards = get_property_cards(soup)
-            print()
             for property_card in (property_cards):
                 data = get_data_from_property_card(property_card)
                 try:
                     db.insert_data('properties', data)
                 except Error as e:
-                    print(e)
-        print('----------------------------')
+                    pass
     time.sleep(1)
+    print(f"Ending scrape at {get_current_time()}")
+
 
 
 if __name__ == '__main__':
