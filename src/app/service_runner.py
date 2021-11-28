@@ -7,7 +7,7 @@ import main
 def job():
     main.main()
 
-schedule.every().day.at("0:01").do(job)
+schedule.every().day.at("00:01").do(job)
 
 while True:
     schedule.run_pending()
