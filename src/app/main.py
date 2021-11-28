@@ -186,6 +186,7 @@ def main():
         soup = get_soup(url)
         num_pages = get_number_of_pages(soup)
         for page in range(num_pages):
+            logging.info(f'Page: {page} - {get_current_time()}')
             url = URLSets.standard(page_no=page, num_beds=num_beds)
             soup = get_soup(url)
             property_cards = get_property_cards(soup)
