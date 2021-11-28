@@ -168,7 +168,7 @@ def get_current_time():
 
 
 def main():
-    logging.basicConfig(filename='renty.log', encoding='utf-8', level=logging.INFO)
+    logging.basicConfig(filename='renty.log', level=logging.INFO)
 
     basepath = os.path.dirname(__file__)
     dbpath = os.path.abspath(os.path.join(basepath,os.pardir, "renty.db"))
