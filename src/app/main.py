@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from sqlite3 import Error
 from tqdm import tqdm
 from datetime import datetime
-
+import logging
 import process_text
 from database_builder import DatabaseBuilder
 
@@ -165,7 +165,11 @@ def get_current_time():
     str_date_time = date_time.strftime("%d-%m-%Y, %H:%M:%S")
     return str_date_time
 
+
+
 def main():
+    logging.basicConfig(filename='renty.log', encoding='utf-8', level=logging.INFO)
+
     basepath = os.path.dirname(__file__)
     dbpath = os.path.abspath(os.path.join(basepath,os.pardir, "renty.db"))
     db = DatabaseBuilder(dbpath)
@@ -174,7 +178,7 @@ def main():
 
     # loop through possible number of beds
 
-    print(f"Starting scrape at {get_current_time()}", end = ' - ')
+    logging.info(f"Starting scrape at {get_current_time()}")
 
     for num_beds in range(11):
         url = URLSets.standard(num_beds=num_beds)
@@ -191,7 +195,7 @@ def main():
                 except Error as e:
                     pass
     time.sleep(1)
-    print(f"Ending scrape at {get_current_time()}")
+    logging.info(f"Ending scrape at {get_current_time()}")
 
 
 
