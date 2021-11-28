@@ -178,9 +178,10 @@ def main():
 
     # loop through possible number of beds
 
-    logging.info(f"Starting scrape at {get_current_time()}")
+    logging.info(f"Starting scrape - {get_current_time()}")
 
     for num_beds in range(11):
+        logging.info(f'Number of beds: {num_beds} - {get_current_time()}')
         url = URLSets.standard(num_beds=num_beds)
         soup = get_soup(url)
         num_pages = get_number_of_pages(soup)
@@ -195,7 +196,7 @@ def main():
                 except Error as e:
                     pass
     time.sleep(1)
-    logging.info(f"Ending scrape at {get_current_time()}")
+    logging.info(f"Ending scrape - {get_current_time()}")
 
 
 
