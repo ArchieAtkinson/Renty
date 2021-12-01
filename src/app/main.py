@@ -22,9 +22,11 @@ PROPERTIES_PER_PAGE = 24
 
 def get_soup(url=None):
     # get html of base_url page
-    if url is None:
-        page = open(f'pages{os.sep}BristolRents.html', encoding='utf-8')  # for testing
-    else:
+    try:
+        r = requests.get(url, headers=headers)
+        page = r.text
+    except ConnectionError:
+        time.sleep(60 * 10)
         r = requests.get(url, headers=headers)
         page = r.text
 
@@ -181,12 +183,12 @@ def main():
     logging.info(f"Starting scrape - {get_current_time()}")
 
     for num_beds in range(11):
-        logging.info(f'Number of beds: {num_beds} - {get_current_time()}')
+        print(f'Number of beds: {num_beds} - {get_current_time()}')
         url = URLSets.standard(num_beds=num_beds)
         soup = get_soup(url)
         num_pages = get_number_of_pages(soup)
         for page in range(num_pages):
-            logging.info(f'Page: {page} - {get_current_time()}')
+            print(f'Page: {page} - {get_current_time()}')
             url = URLSets.standard(page_no=page, num_beds=num_beds)
             soup = get_soup(url)
             property_cards = get_property_cards(soup)
