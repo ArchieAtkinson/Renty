@@ -10,6 +10,6 @@ COPY install.py tmp/install.py
 
 RUN python3 tmp/install.py
 
-RUN touch /var/log/renty.log
+CMD touch /var/log/renty.log
 
-CMD python3 /home/src/app/service_runner.py > /var/log/renty.log
+# CMD python3 /home/src/app/service_runner.py > /var/log/renty.log

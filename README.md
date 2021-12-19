@@ -1,5 +1,10 @@
 # Renty 
 
+## Docker
+
+
+
+
 ## Setup 
 
 1. To use a virtual environment `virtualenv venv -p python3` in the project directory
@@ -21,7 +26,6 @@ Provide historic data about the propery market
 - Retirement Property : Search
 
 - Price : Card
-
 
 ## Creating URLS
 
