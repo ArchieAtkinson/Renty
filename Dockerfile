@@ -1,6 +1,6 @@
-FROM ubuntu
+FROM arm32v6/python:3.10.1-alpine
 
-RUN apt-get update && apt-get -y install python3-pip
+RUN apk update && apk add gcc && apk add musl-dev
 
 COPY requirements.txt tmp/requirements.txt
 

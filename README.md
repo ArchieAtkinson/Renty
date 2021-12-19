@@ -2,6 +2,7 @@
 
 ## Docker
 
+`sudo groupadd docker`
 
 
 
